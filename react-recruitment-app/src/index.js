@@ -1,9 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
-import '@chatui/core/es/styles/index.less';
-import '@chatui/core/dist/index.css';
 
+
+import 'assets/css/reset.css'
+import 'assets/css/chatui-theme.css'
+import 'assets/css/tailwind.css'
+import "tailwindcss/tailwind.css"
 import {AppProviders} from "context";
 
 ReactDOM.render(
