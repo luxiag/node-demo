@@ -1,0 +1,36 @@
+:root {
+  --brand-1: #1877ff;
+  --brand-2: #4692ff;
+  --brand-3: #88c0ff;
+  --shadow-1: 0 1.5px 3px 0 rgba(0, 0, 0, 0.06), 0 1.5px 3px 0 rgba(0, 0, 0, 0.08);
+  --shadow-2: 0 6px 6px 0 rgba(0, 0, 0, 0.03), 0 4px 2px 0 rgba(0, 0, 0, 0.04);
+  --shadow-3: 0 10px 10px 0 rgba(0, 0, 0, 0.03), 0 8px 4px 0 rgba(0, 0, 0, 0.02);
+}
+.ChatApp,
+.MessageContainer,
+.Navbar,
+.Message .Bubble,
+.QuickReplies,
+.ChatFooter {
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.Message.right .Bubble {
+  background-color: #87c6f3;
+  color: rgba(0, 0, 0, 0.87);
+}
+.Message.left .Bubble {
+  border-radius: 4px 20px 20px 20px;
+}
+.Message.right .Bubble {
+  border-radius: 20px 4px 20px 20px;
+}
+.Card {
+  border-radius: 12px;
+}
+.Btn {
+  border-radius: 16px;
+}
+.QuickReply {
+  border-radius: 20px;
+}
