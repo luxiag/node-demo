@@ -14,20 +14,17 @@ router.get("/", function (req, res, next) {
   res.send("respond with a resource");
 });
 
-// router.post('/register', (req, res) => {
-//   const {email} = req.body
-//   User.findOne({ email })
-//     .then((user) => {
-//       if (user) {
-//         new Result(null).fail('邮箱已被注册')
-//       } else {
-
-//         const newUser = new User({
-//           name: req.body.name,
-//           email: req.body.email,
-
-//         })
-//       }
-//     })
-// })
+router.post("/register", (req, res) => {
+  const { email } = req.body;
+  User.findOne({ email }).then((user) => {
+    if (user) {
+      new Result(null).fail("邮箱已被注册");
+    } else {
+      const newUser = new User({
+        name: req.body.name,
+        email: req.body.email,
+      });
+    }
+  });
+});
 module.exports = router;
