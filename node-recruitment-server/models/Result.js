@@ -1,45 +1,42 @@
-const {
-  CODE_ERROR,
-  CODE_SUCCESS
-} = require('../utils/constant')
+const { CODE_ERROR, CODE_SUCCESS } = require("../config/keys");
 
 class Result {
-  constructor(data, msg = '操作成功', options) {
-    this.data = data
-    this.msg = msg
+  constructor(data, msg = "操作成功", options) {
+    this.data = data;
+    this.msg = msg;
     if (options) {
-      this.options = options
+      this.options = options;
     }
   }
 
   createResult() {
     if (!this.code) {
-      this.code = CODE_SUCCESS
+      this.code = CODE_SUCCESS;
     }
     let base = {
       code: this.code,
       data: this.data,
-      msg: this.msg
-    }
+      msg: this.msg,
+    };
     if (this.options) {
-      base = { ...base, ...this.options }
+      base = { ...base, ...this.options };
     }
-    return base
+    return base;
   }
 
   json(res) {
-    res.json(this.createResult())
+    res.json(this.createResult());
   }
 
   success(res) {
-    this.code = CODE_SUCCESS
-    this.json(res)
+    this.code = CODE_SUCCESS;
+    this.json(res);
   }
 
   fail(res) {
-    this.code = CODE_ERROR
-    this.json(res)
+    this.code = CODE_ERROR;
+    this.json(res);
   }
 }
 
-module.exports = Result
+module.exports = Result;

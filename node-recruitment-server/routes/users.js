@@ -1,20 +1,17 @@
-const express = require('express');
-const jwt = require('jsonwebtoken')
+const express = require("express");
+const jwt = require("jsonwebtoken");
+const boom = require("boom");
+const { body, validationResult } = require("express-validator");
 
-const boom = require('boom')
+const Result = require("../models/Result");
+const User = require("../db/User");
+const { PWD_SALT, PRIVATE_KEY, JWT_EXPIRED } = require("../config/keys");
 
-const { body, validationResult } = require('express-validator')
+const router = express.Router();
 
-const Result = require('../models/Result')
-const User = require('./db/User')
-const {
-  PWD_SALT,
-  PRIVATE_KEY,
-  JWT_EXPIRED
-} = require('../utils/constant')
 /* GET users listing. */
-router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
+router.get("/", function (req, res, next) {
+  res.send("respond with a resource");
 });
 
 // router.post('/register', (req, res) => {
@@ -24,11 +21,11 @@ router.get('/', function(req, res, next) {
 //       if (user) {
 //         new Result(null).fail('邮箱已被注册')
 //       } else {
-        
+
 //         const newUser = new User({
 //           name: req.body.name,
 //           email: req.body.email,
-          
+
 //         })
 //       }
 //     })
