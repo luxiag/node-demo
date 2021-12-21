@@ -18,6 +18,14 @@ module.exports = {
     enable: true,
     mode: "file",
   },
+  devServer: {
+    proxy: {
+      "/api": {
+        target: "http://localhost:5000",
+        pathRewrite: { "^/api": "" },
+      },
+    },
+  },
   plugins: [
     {
       plugin: CracoLessPlugin,

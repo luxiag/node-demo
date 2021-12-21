@@ -2,7 +2,6 @@ const express = require("express");
 const boom = require("boom");
 
 const jwtAuth = require("./jwt");
-const usersRouter = require("./users");
 
 const { CODE_ERROR, CODE_TOKEN_EXPIRED } = require("../config/keys");
 
@@ -13,8 +12,11 @@ router.use(jwtAuth);
 router.get("/", function (req, res) {
   res.send("招聘系统接口正常");
 });
+const usersRouter = require("./users");
+const queryRouter = require("./query");
 
 router.use("/users", usersRouter);
+router.use("/query", queryRouter);
 
 /**
  * 集中处理404请求的中间件

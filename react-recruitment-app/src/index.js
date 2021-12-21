@@ -6,6 +6,7 @@ import "assets/css/reset.css";
 import "assets/css/chatui-theme.css";
 import "assets/css/tailwind.css";
 import "tailwindcss/tailwind.css";
+import "assets/css/theme.less";
 import { AppProviders } from "context";
 
 ReactDOM.render(
