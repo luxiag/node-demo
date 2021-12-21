@@ -18,10 +18,12 @@ import { PictureOutline, RightOutline } from "antd-mobile-icons";
 import classNames from "classnames";
 
 import { CitySelector } from "components/CitySelector.jsx";
-import { Map } from "components/Map";
 
 import { queryCities } from "api/query";
+
+import { useNavigate } from "react-router-dom";
 import "./index.less";
+import { useMount } from "utils";
 
 export const Register = () => {
   const onFinish = (values) => {
@@ -29,10 +31,13 @@ export const Register = () => {
       content: JSON.stringify(values),
     });
   };
+  let navigate = useNavigate();
   const [fileList, setFileList] = useState([]);
   const [isEmploy, setIsEmploy] = useState(true);
   const [showCitySelector, setShowCitySelector] = useState(false);
   const [expectationCity, setExpectationCity] = useState("广州");
+
+  const [selectLocation, SetSelectLocation] = useState({});
   const updateAvatar = (file) => {
     console.log(file);
     return {
@@ -61,6 +66,12 @@ export const Register = () => {
     );
   };
   const NoEmployedList = () => {
+    let [comapnyLocation, setCompanyLocation] = useState();
+    useMount(() => {
+      setCompanyLocation(
+        JSON.parse(localStorage.getItem("companyLocation"))?.address
+      );
+    });
     return (
       <>
         <Form.Item name="address" label="公司名称">
@@ -71,6 +82,18 @@ export const Register = () => {
             placeholder="请输入个人描述"
             autoSize={{ minRows: 3, maxRows: 20 }}
           />
+        </Form.Item>
+        <Form.Item label="公司地点">
+          <div
+            onClick={() => {
+              console.log("aaa");
+              navigate(`/selectLocation`);
+            }}
+            className="expectations-city"
+          >
+            <span>{comapnyLocation}</span>
+            <RightOutline />
+          </div>
         </Form.Item>
         <Form.Item name="address" label="招聘岗位">
           <Input placeholder="请输入地址" />
@@ -95,7 +118,7 @@ export const Register = () => {
   };
   return (
     <div id="pages-register">
-      {/* <div className={classNames({ noShow: showCitySelector })}>
+      <div className={classNames({ noShow: showCitySelector })}>
         <Form
           // className="test"
           onFinish={onFinish}
@@ -176,8 +199,7 @@ export const Register = () => {
         showCitySelector={showCitySelector}
         setShowCitySelector={setShowCitySelector}
         setExpectationCity={setExpectationCity}
-      /> */}
-      <Map />
+      />
     </div>
   );
 };

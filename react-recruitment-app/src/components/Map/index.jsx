@@ -4,11 +4,14 @@ import { LocationFill } from "antd-mobile-icons";
 
 import "./index.less";
 import { useDebounce } from "utils";
+import { useNavigate, useSearchParams } from "react-router-dom";
 export const Map = () => {
   let map;
   let center;
   let mapGeo;
-  let [location, setLocation] = useState(useDebounce(""));
+  let [location, setLocation] = useState({});
+  //路由
+  let navigate = useNavigate();
   useEffect(() => {
     initMap();
   }, []);
@@ -34,7 +37,8 @@ export const Map = () => {
     });
     map.addEventListener("click", (e) => {
       // console.log(e, "e");
-      center = e.yf;
+      // center = e.yf;
+      center = map.getCenter();
       map.panBy(
         window.innerWidth / 2 - e.offsetX,
         window.innerHeight / 2 - e.offsetY
@@ -51,45 +55,40 @@ export const Map = () => {
       });
     });
 
-    let marker = new window.BMap.Marker(new window.BMap.Point(116.404, 39.915));
-    map.addOverlay(marker);
+    // let marker = new window.BMap.Marker(new window.BMap.Point(116.404, 39.915));
+    // map.addOverlay(marker);
   };
   const getLocation = () => {
     mapGeo.getLocation(
       new window.BMap.Point(center.lng, center.lat),
       (result) => {
-        // console.log(result, "result");
-        setLocation(result.address);
+        setLocation({ address: result.address, center });
       }
     );
   };
-  const updateLocation = (val) => {
-    if (val === "" || val == null || val === {} || val.length < 6) return;
-    mapGeo.getPoint(val, (point) => {
-      if (!point) return;
-      map.centerAndZoom(point, 16);
-    });
-    // setLocation(val);
+  const updateLocation = () => {
+    localStorage.setItem("companyLocation", JSON.stringify(location));
+    navigate(-1);
   };
+
   return (
     <div id="map">
-      <NavBar className="city-nav" back="返回" onBack={() => {}}>
+      <NavBar
+        className="city-nav"
+        back="返回"
+        onBack={() => {
+          navigate(-1);
+        }}
+      >
         选择地址
       </NavBar>
       <div className="map-location">
         <Input
           placeholder="请输入内容"
-          value={location}
-          // onChange={(val) => updateLocation(val)}
-          // clearable
+          value={location?.address || ""}
           disabled
         />
-        <Button
-          color="primary"
-          onClick={() => {
-            console.log(location, "location");
-          }}
-        >
+        <Button color="primary" onClick={updateLocation}>
           确认
         </Button>
       </div>

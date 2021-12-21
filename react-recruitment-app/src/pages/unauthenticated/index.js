@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import styled from "@emotion/styled";
-import { Login } from "pages/Login";
-import { Register } from "pages/Register";
+// import { Login } from "pages/Login";
+// import { Register } from "pages/Register";
 
+import { Outlet, NavLink } from "react-router-dom";
 export const Unauthenticated = () => {
   const [isRegister, setIsRegister] = useState(false);
+
   return (
-    <>
+    <div className="unauthenticated">
       <div className="min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-md w-full space-y-8">
           <div>
@@ -16,27 +18,19 @@ export const Unauthenticated = () => {
               alt="Workflow"
             />
             <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-              <Title
-                style={{ paddingLeft: "80px" }}
-                isRegister={!isRegister}
-                onClick={() => setIsRegister(false)}
-              >
+              <Title style={{ paddingLeft: "80px" }} to="login">
                 登录
               </Title>
-              <Title
-                style={{ paddingRight: "80px" }}
-                isRegister={isRegister}
-                onClick={() => setIsRegister(true)}
-              >
+              <Title style={{ paddingRight: "80px" }} to="register">
                 注册
               </Title>
             </h2>
           </div>
           <Header></Header>
-          {isRegister ? <Register /> : <Login />}
+          <Outlet />
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
@@ -45,7 +39,6 @@ const Header = styled.div`
   text-align: center;
   margin: 20px;
 `;
-const Title = styled.span`
-  color: ${(props) => (props.isRegister ? "" : "#ccc")};
-  padding: 20px;
+const Title = styled(NavLink)`
+  color: #ccc;
 `;
